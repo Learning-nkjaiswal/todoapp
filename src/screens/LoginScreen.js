@@ -1,18 +1,25 @@
 import React from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   Text,
-  StatusBar,
+  TextInput,
 } from 'react-native';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
+
+  const onLoginPress = () => {
+
+  };
+
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView>
-          <Text>LoginScreen</Text>
+          <Text style={{fontWeight: 'bold'}}>Enter Your Name:</Text>
+          <TextInput placeholder='Name'></TextInput>
+          <Button onPress={onLoginPress} title={'Login'}/>
         </ScrollView>
       </SafeAreaView>
     </>
