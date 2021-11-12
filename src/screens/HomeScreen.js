@@ -3,16 +3,20 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  StatusBar,
+  Button,
 } from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView>
-          <Text>HomeScreen</Text>
+        <Button
+          title="Go to Task Details"
+          onPress={() =>
+            navigation.navigate('TaskDetails', { id: 'Jane' })
+          }
+        />
         </ScrollView>
       </SafeAreaView>
     </>

@@ -13,17 +13,25 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from "./src/screens/HomeScreen";
+import TaskDetails from "./src/screens/TaskDetails";
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView>
-          <Text>Hello World!</Text>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: 'Welcome' }}
+          />
+        <Stack.Screen name="TaskDetails" component={TaskDetails} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
