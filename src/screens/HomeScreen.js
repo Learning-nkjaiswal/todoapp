@@ -11,12 +11,12 @@ const HomeScreen = ({ navigation }) => {
     <>
       <SafeAreaView>
         <ScrollView>
-        <Button
-          title="Go to Task Details"
-          onPress={() =>
-            navigation.navigate('TaskDetails', { id: 'Jane' })
-          }
-        />
+          <Button
+            title="Go to Task Details"
+            onPress={() =>
+              navigation.navigate('TaskDetails', { id: 'Jane' })
+            }
+          />
         </ScrollView>
       </SafeAreaView>
     </>
