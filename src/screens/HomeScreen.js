@@ -6,15 +6,17 @@ import {
   Button,
 } from 'react-native';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = (props) => {
+
   return (
     <>
       <SafeAreaView>
         <ScrollView>
+          <Text style={{fontWeight: 'bold'}}>Welcome {props.route.params.user} !</Text>
           <Button
             title="Go to Task Details"
             onPress={() =>
-              navigation.navigate('TaskDetails', { id: 'Jane' })
+              props.navigation.navigate('TaskDetails', { id: 'Jane' })
             }
           />
         </ScrollView>

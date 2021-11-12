@@ -14,11 +14,14 @@ const LoginScreen = ({ navigation }) => {
 
   const onLoginPress = () => {
     AsyncStorage.setItem('user', username);
+    navigation.navigate("Home", {user: username});
   };
 
   useEffect(() => {
     AsyncStorage.getItem('user').then(user => {
-      console.log(user);
+      if(user) {
+        navigation.navigate("Home", {user});
+      }
     });
   }, [])
 
