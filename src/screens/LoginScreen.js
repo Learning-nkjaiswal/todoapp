@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   SafeAreaView,
@@ -6,19 +6,28 @@ import {
   Text,
   TextInput,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
 
-  const onLoginPress = () => {
+  const [username, setUsername] = useState(undefined);
 
+  const onLoginPress = () => {
+    AsyncStorage.setItem('user', username);
   };
+
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(user => {
+      console.log(user);
+    });
+  }, [])
 
   return (
     <>
       <SafeAreaView>
         <ScrollView>
           <Text style={{fontWeight: 'bold'}}>Enter Your Name:</Text>
-          <TextInput placeholder='Name'></TextInput>
+          <TextInput placeholder='Name' onChangeText={(val) => setUsername(val)}></TextInput>
           <Button onPress={onLoginPress} title={'Login'}/>
         </ScrollView>
       </SafeAreaView>
