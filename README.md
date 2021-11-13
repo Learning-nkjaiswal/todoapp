@@ -17,3 +17,6 @@ RN project
 ### If fail follow these steps:
     cd android
     ./gradlew clean
+
+cd android
+./gradlew app:assembleRelease
