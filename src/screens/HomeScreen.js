@@ -16,8 +16,11 @@ const HomeScreen = (props) => {
   const user = props.route.params.user;
   const [data, setData] = useState([]);
   const [promptVisibility, setPromptVisibility] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [taskPromptVisibility, setTaskPromptVisibility] = useState(false);
+  const [selectedTaskGroup, setSelectedTaskGroup] = useState(undefined);
 
-  const fetchTaskGroups = (user) => {
+  const fetchTaskGroups = () => {
     Api.getTaskGroups(user)
       .then(groups => {
         let comboBoxData = [];
@@ -37,25 +40,50 @@ const HomeScreen = (props) => {
   }  
 
   useEffect(() => {
-    fetchTaskGroups(user);
+    fetchTaskGroups();
   }, []);
+
+  const fetchTaskInTheGroup = (id) => {
+    Api.getTaskInTaskGroups(user, id)
+    .then((responseTask) => {
+      setTasks(responseTask);
+      console.log(responseTask);
+    })
+    .catch(() => ToastAndroid.show('Unable to fetch Task', ToastAndroid.LONG));
+  }
 
   const onDropDownValueSelect = (text, index) => {
     if(data[index].id === 'add_new') {
       setPromptVisibility(true);
     } else {
-
+      setSelectedTaskGroup(data[index]);
+      fetchTaskInTheGroup(data[index].id);
     }
   }
 
   const createNewGroup = (newTaskGroupName) => {
     Api.createTaskGroups(user, newTaskGroupName)
     .then(() => {
-      fetchTaskGroups(user);
+      fetchTaskGroups();
       ToastAndroid.show('Successfully Created Task Group', ToastAndroid.SHORT)
     })
     .catch(() => ToastAndroid.show('Unable to Create New Group', ToastAndroid.LONG));
     setPromptVisibility(false);
+  }
+
+  const addNewTask = () => {
+    setTaskPromptVisibility(true);
+  }
+
+  const createNewTask = (taskName) => {
+    console.log(taskName);
+    Api.createNewTaskInTaskGroups(user, selectedTaskGroup.id, taskName)
+    .then(() => {
+      fetchTaskInTheGroup(selectedTaskGroup.id);
+      ToastAndroid.show('Successfully Created Task', ToastAndroid.SHORT);
+      setTaskPromptVisibility(false);
+    })
+    .catch(() => ToastAndroid.show('Unable to Create New Task', ToastAndroid.LONG));
   }
 
   return (
@@ -63,13 +91,9 @@ const HomeScreen = (props) => {
       <SafeAreaView>
         <ScrollView>
           <Dropdown data={data} onChangeText={onDropDownValueSelect}/>
-          <Text style={{fontWeight: 'bold'}}>Welcome {props.route.params.user} !</Text>
-          <Button
-            title="Go to Task Details"
-            onPress={() =>
-              props.navigation.navigate('TaskDetails', { id: 'Jane' })
-            }
-          />
+          <Text style={{fontWeight: 'bold', alignSelf : 'center'}}>Welcome {props.route.params.user} !</Text>
+          {tasks.length === 0 && <Text style={{alignSelf : 'center'}}>No Task Present in Current Task Group</Text>}
+          <Button title="Add New Task" onPress={addNewTask}/>
         </ScrollView>
       </SafeAreaView>
       <Prompt
@@ -78,6 +102,13 @@ const HomeScreen = (props) => {
         placeholder="Enter New Task Group Name"
         onCancel={() => setPromptVisibility(false)}
         onSubmit={createNewGroup}
+      />
+      <Prompt
+        visible={taskPromptVisibility}
+        title="New Task"
+        placeholder="Enter New Task Name"
+        onCancel={() => setTaskPromptVisibility(false)}
+        onSubmit={createNewTask}
       />
     </>
   );

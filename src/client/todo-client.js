@@ -16,6 +16,20 @@ export const createTaskGroups = (user, newTaskGroupName) => {
     })
 }
 
+export const getTaskInTaskGroups = (user, taskGroupId) => {
+    return RestCall(`${endpoint}/api/v1/TaskGroup/${taskGroupId}/tasks`, {
+        method: 'GET',
+        headers: {user}
+    })
+}
+
+export const createNewTaskInTaskGroups = (user, taskGroupId, taskName) => {
+    return RestCall(`${endpoint}/api/v1/TaskGroup/${taskGroupId}/task`, {
+        method: 'POST',
+        headers: {user, 'Content-Type': 'application/json'},
+        body: JSON.stringify({name: taskName})
+    })
+}
 
 const RestCall = (url, params) => {
     console.log(url, params);
