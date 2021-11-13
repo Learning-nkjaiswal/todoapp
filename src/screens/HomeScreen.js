@@ -10,6 +10,7 @@ import {
 import * as Api from "../client/todo-client";
 import {Dropdown} from 'react-native-material-dropdown-v2';
 import Prompt from 'react-native-input-prompt';
+import Task from '../components/Task';
 
 const HomeScreen = (props) => {
 
@@ -47,7 +48,6 @@ const HomeScreen = (props) => {
     Api.getTaskInTaskGroups(user, id)
     .then((responseTask) => {
       setTasks(responseTask);
-      console.log(responseTask);
     })
     .catch(() => ToastAndroid.show('Unable to fetch Task', ToastAndroid.LONG));
   }
@@ -86,6 +86,14 @@ const HomeScreen = (props) => {
     .catch(() => ToastAndroid.show('Unable to Create New Task', ToastAndroid.LONG));
   }
 
+  const getTaskComponent = (tasks) => {
+    const taskComponent = [];
+    tasks.forEach(task => {
+      taskComponent.push(<Task {...task} />);
+    })
+    return taskComponent;
+  }
+
   return (
     <>
       <SafeAreaView>
@@ -94,6 +102,9 @@ const HomeScreen = (props) => {
           <Text style={{fontWeight: 'bold', alignSelf : 'center'}}>Welcome {props.route.params.user} !</Text>
           {tasks.length === 0 && <Text style={{alignSelf : 'center'}}>No Task Present in Current Task Group</Text>}
           <Button title="Add New Task" onPress={addNewTask}/>
+          <View style={{marginTop: 10}}>
+            {getTaskComponent(tasks)}
+          </View>
         </ScrollView>
       </SafeAreaView>
       <Prompt
