@@ -89,7 +89,7 @@ const HomeScreen = (props) => {
   const getTaskComponent = (tasks) => {
     const taskComponent = [];
     tasks.forEach(task => {
-      taskComponent.push(<Task {...task} markAsDone={markAsDone} removeTask={removeTask}/>);
+      taskComponent.push(<Task {...task} markAsDone={markAsDone} removeTask={removeTask} showTaskDetails={showTaskDetails}/>);
     })
     return taskComponent;
   }
@@ -110,6 +110,10 @@ const HomeScreen = (props) => {
       ToastAndroid.show('Successfully Removed Task', ToastAndroid.SHORT);
     })
     .catch(() => ToastAndroid.show('Unable to Remove Task', ToastAndroid.LONG))
+  }
+
+  const showTaskDetails = (task) => {
+    props.navigation.navigate("TaskDetails", {taskId: task.id, user, taskGroupId: selectedTaskGroup.id, task});
   }
 
   return (

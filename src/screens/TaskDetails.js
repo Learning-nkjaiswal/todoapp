@@ -3,16 +3,24 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  StatusBar,
+  View,
 } from 'react-native';
 
-const TaskDetails = () => {
+const TaskDetails = (props) => {
+
+  const user = props.route.params.user;
+  const taskGroupId = props.route.params.taskGroupId;
+  const taskId = props.route.params.taskId;
+  const task = props.route.params.task;
+
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView>
-          <Text>TaskDetails</Text>
+          <View style={{padding: 15}}>
+            <Text style={{fontSize: 30}}>{task.name}</Text>
+            <Text >{task.eta ? task.eta : "No ETA"}</Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>
