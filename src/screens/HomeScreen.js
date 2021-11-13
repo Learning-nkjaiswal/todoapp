@@ -89,9 +89,18 @@ const HomeScreen = (props) => {
   const getTaskComponent = (tasks) => {
     const taskComponent = [];
     tasks.forEach(task => {
-      taskComponent.push(<Task {...task} />);
+      taskComponent.push(<Task {...task} markAsDone={markAsDone}/>);
     })
     return taskComponent;
+  }
+
+  const markAsDone = (taskId) => {
+    Api.markTaskAsCompleted(user, selectedTaskGroup.id, taskId)
+    .then(() => {
+      fetchTaskInTheGroup(selectedTaskGroup.id);
+      ToastAndroid.show('Successfully Marked Task as completed', ToastAndroid.SHORT);
+    })
+    .catch(() => ToastAndroid.show('Unable to Marked Task as completed', ToastAndroid.LONG))
   }
 
   return (

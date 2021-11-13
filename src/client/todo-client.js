@@ -31,6 +31,13 @@ export const createNewTaskInTaskGroups = (user, taskGroupId, taskName) => {
     })
 }
 
+export const markTaskAsCompleted = (user, taskGroupId, taskId) => {
+    return RestCall(`${endpoint}/api/v1/TaskGroup/${taskGroupId}/task/${taskId}/complete`, {
+        method: 'PUT',
+        headers: {user, 'Content-Type': 'application/json'}
+    })
+}
+
 const RestCall = (url, params) => {
     console.log(url, params);
     return fetch(url, params).then(response => {

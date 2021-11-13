@@ -11,8 +11,15 @@ import {
 export default Task = (props) => {
     return (
         <View style={{borderWidth: 1, backgroundColor: '#AAA', padding: 10, margin: 3}}>
-            <Text>{props.name}</Text>
-            {props.eta && <Text>{props.eta}</Text>}
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
+                <View>
+                    <Text>{props.name}</Text>
+                    {props.eta && <Text>{props.eta}</Text>}
+                </View>
+                {!props.completed && <View>
+                    <Button title={'Done'} onPress={() => props.markAsDone(props.id)}/>
+                </View>}
+            </View>
         </View>
     )
 }
