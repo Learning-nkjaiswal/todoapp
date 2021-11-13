@@ -16,9 +16,12 @@ export default Task = (props) => {
                     <Text>{props.name}</Text>
                     {props.eta && <Text>{props.eta}</Text>}
                 </View>
-                {!props.completed && <View>
-                    <Button title={'Done'} onPress={() => props.markAsDone(props.id)}/>
-                </View>}
+                <View style={{flexDirection: 'row'}}>
+                    {!props.completed && <View>
+                        <Button title={'Done'} onPress={() => props.markAsDone(props.id)}/>
+                    </View>}
+                    <Button color='red' title={'Remove'} onPress={() => props.removeTask(props.id)}/>
+                </View>
             </View>
         </View>
     )

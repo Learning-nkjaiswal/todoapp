@@ -89,7 +89,7 @@ const HomeScreen = (props) => {
   const getTaskComponent = (tasks) => {
     const taskComponent = [];
     tasks.forEach(task => {
-      taskComponent.push(<Task {...task} markAsDone={markAsDone}/>);
+      taskComponent.push(<Task {...task} markAsDone={markAsDone} removeTask={removeTask}/>);
     })
     return taskComponent;
   }
@@ -101,6 +101,15 @@ const HomeScreen = (props) => {
       ToastAndroid.show('Successfully Marked Task as completed', ToastAndroid.SHORT);
     })
     .catch(() => ToastAndroid.show('Unable to Marked Task as completed', ToastAndroid.LONG))
+  }
+
+  const removeTask = (taskId) => {
+    Api.removeTask(user, selectedTaskGroup.id, taskId)
+    .then(() => {
+      fetchTaskInTheGroup(selectedTaskGroup.id);
+      ToastAndroid.show('Successfully Removed Task', ToastAndroid.SHORT);
+    })
+    .catch(() => ToastAndroid.show('Unable to Remove Task', ToastAndroid.LONG))
   }
 
   return (
