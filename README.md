@@ -12,10 +12,12 @@ RN project
 ## install these packages
 
 
-    "@react-native-async-storage/async-storage": "^1.15.11",
-    "@react-navigation/drawer": "^6.1.8",
-    "@react-navigation/native": "^6.0.6",
-    "@react-navigation/stack": "^6.0.11",
+    npm install @react-navigation/native --save
+    npm install react-native-screens 
+    npm install react-native-safe-area-context 
+    npm install @react-navigation/drawer --save
+    npm install @react-navigation/stack --save
+    npm install --save @react-native-async-storage/async-storage
 
 ### then run "react-native run-android"
 
