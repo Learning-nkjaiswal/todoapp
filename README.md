@@ -10,8 +10,6 @@ RN project
 
 
 ## install these packages
-
-
     npm install @react-navigation/native --save
     npm install react-native-screens 
     npm install react-native-safe-area-context 
@@ -37,5 +35,6 @@ RN project
     cd android
     ./gradlew clean
 
-cd android
-./gradlew app:assembleRelease
+### build APK
+    cd android
+    ./gradlew app:assembleRelease
