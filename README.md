@@ -18,6 +18,18 @@ RN project
     npm install @react-navigation/drawer --save
     npm install @react-navigation/stack --save
     npm install --save @react-native-async-storage/async-storage
+    
+## Create Directory and Files Needed
+    mkdir src
+    cd src
+    mkdir client
+    mkdir components
+    mkdir screens
+    touch ./client/todo-client.js
+    touch ./components/Task.js
+    touch ./screens/HomeScreen.js
+    touch ./screens/LoginScreen.js
+    touch ./screens/TaskDetails.js
 
 ### then run "react-native run-android"
 
