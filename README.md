@@ -16,6 +16,7 @@ RN project
     npm install @react-navigation/drawer --save
     npm install @react-navigation/stack --save
     npm install --save @react-native-async-storage/async-storage
+    npm install react-native-material-dropdown-v2
     
 ## Create Directory and Files Needed
     mkdir src
